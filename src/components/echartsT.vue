@@ -1,5 +1,6 @@
 <template>
   <div class="ET">
+      <!-- 设置长宽分别为1600px和1000px -->
     <div id="main" style="width: 1600px;height:1000px;"></div>
   </div>
 </template>
@@ -9,159 +10,18 @@ import axios from "axios";
 export default {
   data() {
     return {
-      //   dataList: [
-      //     {
-      //       name: "徐贱云",
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "冯可梁",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "邓志荣",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "李荣庆",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "郑志勇",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "赵英杰",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "王承军",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "陈卫东",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "邹劲松",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "赵成",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "陈现忠",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "陶泳",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //     {
-      //       name: "王德福",
-      //       category: 1,
-      //       draggable: true,
-      //     },
-      //   ],
-      //   links: [
-      //     {
-      //       source: 0,
-      //       target: 1,
-      //       category: 0,
-      //       value: "夫妻",
-      //     },
-      //     {
-      //       source: 0,
-      //       target: 2,
-      //       value: "子女",
-      //     },
-      //     {
-      //       source: 0,
-      //       target: 3,
-      //       value: "夫妻",
-      //     },
-      //     {
-      //       source: 0,
-      //       target: 4,
-      //       value: "父母",
-      //     },
-      //     {
-      //       source: 1,
-      //       target: 2,
-      //       value: "表亲",
-      //     },
-      //     {
-      //       source: 0,
-      //       target: 5,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 4,
-      //       target: 5,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 2,
-      //       target: 8,
-      //       value: "叔叔",
-      //     },
-      //     {
-      //       source: 0,
-      //       target: 12,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 6,
-      //       target: 11,
-      //       value: "爱人",
-      //     },
-      //     {
-      //       source: 6,
-      //       target: 3,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 7,
-      //       target: 5,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 9,
-      //       target: 10,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 3,
-      //       target: 10,
-      //       value: "朋友",
-      //     },
-      //     {
-      //       source: 2,
-      //       target: 11,
-      //       value: "同学",
-      //     },
-      //   ],
+
       dataList: null,
       links: null,
     };
   },
+//   监听containerT中的dataLists字段
   watch: {
     dataLists() {
       //   console.log(this.text);
       this.dataList = this.dataLists.dataList;
       this.links = this.dataLists.links;
+    //   根据category值进行分类讨论，如果是2则直接跳转到对应文章（目前为跳转至百度），否则仅更新引力图
       this.dataList.map((e) => {
         if (e.name == this.text) {
           if (e.category == 2) {
@@ -190,6 +50,7 @@ export default {
     //   //   console.log(111);
     // },
   },
+//   初始化，使用不带参的方式访问接口，获取初始化值
   created() {
     axios.post("/pmc/test").then((res) => {
       this.dataList = res.data.dataList;
@@ -201,6 +62,16 @@ export default {
     //   this.dataLi
   },
   methods: {
+    //  我真的不知道这个echarts具体怎么实现的qaq
+    // 但他确实工作状况正常
+    // 构建这个echarts需要2个字段，datalist字段和links字段
+    // datalist字段分为name category draggable 3项
+    // name为圆形中显示的字符
+    // category值一个是用于颜色区分，一个是作为是否跳转文章的依据 
+    // draggable设置为true就好
+    // links字段分为source targert value
+    // source target表示关系的发出者与接收者
+    // value为关系名
     myET() {
       // 基于准备好的dom，初始化echarts实例
       var myChart = this.$echarts.init(document.getElementById("main"));
@@ -292,7 +163,7 @@ export default {
       };
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
-
+// 图标可点击设置，首先获取点击圆形的name和category，再调用getData函数
       myChart.on("click", (params) => {
         console.log(params);
         var name = params.name;
@@ -305,6 +176,8 @@ export default {
         // console.log(name, category);
       });
     },
+    // 如果点击的圆形的category值为1，则根据名字请求后端接口，更新引力图
+    // 若为2，则进行页面跳转
     getData(name, category) {
       if (category == 1) {
         axios.post(`/pmc/test?name=${name}`).then((res) => {

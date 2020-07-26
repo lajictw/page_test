@@ -3,7 +3,9 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// 布局使用element-ui
 import ElementUI from 'element-ui';
+// 引力图使用echarts
 import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css';
 

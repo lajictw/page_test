@@ -10,6 +10,7 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    // 用于解决前端请求跨域的问题
     proxyTable: {
       '/pmc': {
         target: 'http://127.0.0.1:9014',
