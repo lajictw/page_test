@@ -22,7 +22,7 @@ export default {
         },
         {
           name: "邓志荣",
-          category: 2,
+          category: 1,
           draggable: true,
         },
         {
@@ -52,7 +52,7 @@ export default {
         },
         {
           name: "邹劲松",
-          category: 1,
+          category: 2,
           draggable: true,
         },
         {

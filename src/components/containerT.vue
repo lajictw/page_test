@@ -83,7 +83,7 @@
       <el-main>
         <!-- <el-carousel :interval="5000" arrow="always" height="700px"> -->
           <!-- 跑马灯组件，卡片式图像展示，设置高度为450px -->
-        <el-carousel :interval="5000" type="card" height="450px">
+        <el-carousel :interval="5000" type="card" height="250px">
           <!-- <el-carousel-item v-for="item in imgList" :key="item"> -->
             <!-- 设置播放循环， -->
           <el-carousel-item v-for="(item,index) in 4" :key="item">
@@ -153,7 +153,7 @@ export default {
   },
 // 引力图组件
   components: {
-    EC: () => import("./echartsT.vue"),
+    EC: () => import("./echartsT2.vue"),
   },
   methods: {
     // getImgUrl方法，用于获取展示的图片的url信息，其中url对应图片名称，type分为png和jpg，

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import test from '@/components/test'
 import containerT from '@/components/containerT'
+import containerT2 from '@/components/containerT2'
 import echarts from '@/components/echarts'
 import echartsT from '@/components/echartsT'
 import echartsT2 from '@/components/echartsT2'
@@ -25,6 +26,11 @@ export default new Router({
       path: '/ct',
       name: 'test',
       component: containerT
+    },
+    {
+      path: '/ct2',
+      name: 'ct2',
+      component: containerT2
     },
     {
       path: '/et',
