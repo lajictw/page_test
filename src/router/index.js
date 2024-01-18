@@ -7,6 +7,14 @@ import containerT2 from '@/components/containerT2'
 import echarts from '@/components/echarts'
 import echartsT from '@/components/echartsT'
 import echartsT2 from '@/components/echartsT2'
+import main from '@/components/main'
+import menuTest from '@/components/menuTest'
+import Home from '@/components/Home'
+import Dataset from '@/components/Dataset'
+import tableTest from '@/components/tableTest'
+import Generation from '@/components/Generation'
+import Leaderboard from '@/components/Leaderboard'
+
 
 Vue.use(Router)
 
@@ -14,8 +22,43 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/Home',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/Leaderboard',
+      name: 'Leaderboard',
+      component: Leaderboard
+    },
+    {
+      path: '/tableTest',
+      name: 'tableTest',
+      component: tableTest
+    },
+    {
+      path: '/Dataset',
+      name: 'Dataset',
+      component: Dataset
+    },
+    {
+      path: '/Generation',
+      name: 'Generation',
+      component: Generation
+    },
+    {
+      path: '/main',
+      name: 'main',
+      component: main
+    },
+    {
+      path: '/menuTest',
+      name: 'menuTest',
+      component: menuTest
     },
     {
       path: '/test',
@@ -24,7 +67,7 @@ export default new Router({
     },
     {
       path: '/ct',
-      name: 'test',
+      name: 'ctest',
       component: containerT
     },
     {

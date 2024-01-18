@@ -1,154 +1,99 @@
 <template>
+  <div>
+    <el-tabs v-model="activeTab">
+      <!-- Tab 1 -->
+      <el-tab-pane label="Tab 1" name="tab1">
+        <!-- <div>
+          <el-form ref="form" :model="form" label-width="80px">
+          
+          </el-form>
+        </div> -->
+
+        <el-alert title="希腊字母 alpha:" type="info" description="这是希腊字母 alpha: &alpha;" show-icon />
+        <el-input-number v-model="c1" :controls="false" placeholder="输入c1"></el-input-number>
+        <el-input-number v-model="c2" :controls="false" placeholder="输入c2"></el-input-number>
+      </el-tab-pane>
+
+      <!-- Tab 2 -->
+      <el-tab-pane label="Tab 2" name="tab2">
+        <el-input-number v-model="c3" :controls="false" placeholder="输入c3"></el-input-number>
+      </el-tab-pane>
+    </el-tabs>
     <div>
-        <el-container style="height: 500px; border: 1px solid #eee">
-  <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :default-openeds="['1', '3']">
-      <el-submenu index="1">
-        <template slot="title"><i class="el-icon-message"></i>导航一</template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title"><i class="el-icon-menu"></i>导航二</template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="2-1">选项1</el-menu-item>
-          <el-menu-item index="2-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="2-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项4-1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title"><i class="el-icon-setting"></i>导航三</template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="3-1">选项1</el-menu-item>
-          <el-menu-item index="3-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="3-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="3-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-    </el-menu>
-  </el-aside>
-  
-  <el-container>
-    <el-header style="text-align: right; font-size: 12px">
-      <el-dropdown>
-        <i class="el-icon-setting" style="margin-right: 15px"></i>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>查看</el-dropdown-item>
-          <el-dropdown-item>新增</el-dropdown-item>
-          <el-dropdown-item>删除</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <span>王小虎</span>
-    </el-header>
-    
-    <el-main>
-      <el-table :data="tableData">
-        <el-table-column prop="date" label="日期" width="140">
-        </el-table-column>
-        <el-table-column prop="name" label="姓名" width="120">
-        </el-table-column>
-        <el-table-column prop="address" label="地址">
-        </el-table-column>
-      </el-table>
+    <!-- 选择器 -->
+    <el-select v-model="selectedValue" placeholder="请选择">
+      <el-option label="选项1" value="option1"></el-option>
+      <el-option label="选项2" value="option2"></el-option>
+      <!-- 其他选项... -->
+    </el-select>
 
-      <el-row>
-  <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
-    <el-card :body-style="{ padding: '0px' }">
-      <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
-      <div style="padding: 14px;">
-        <span>好吃的汉堡</span>
-        <div class="bottom clearfix">
-          <time class="time">{{ currentDate }}</time>
-          <el-button type="text" class="button">操作按钮</el-button>
-        </div>
-      </div>
-    </el-card>
-  </el-col>
-</el-row>
+    <!-- 文本框 -->
+    <el-input  v-model="selectedValue"
+      :value="selectedValue"
+      readonly
+      type="textarea"
+      :rows="4" ></el-input>
 
-    </el-main>
-  </el-container>
-</el-container>
-    </div>
+    <!-- 复制按钮 -->
+    <el-button @click="copyToClipboard">复制</el-button>
+  </div>
+    <!-- 文本框 -->
+    <el-input :value="result" placeholder="展示结果" disabled></el-input>
+  </div>
 </template>
 
-<style>
-  .el-header {
-    background-color: #B3C0D1;
-    color: #333;
-    line-height: 60px;
-  }
-  
-  .el-aside {
-    color: #333;
-  }
-
-  .time {
-    font-size: 13px;
-    color: #999;
-  }
-  
-  .bottom {
-    margin-top: 13px;
-    line-height: 12px;
-  }
-
-  .button {
-    padding: 0;
-    float: right;
-  }
-
-  .image {
-    width: 100%;
-    display: block;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-  
-  .clearfix:after {
-      clear: both
-  }
-</style>
-
 <script>
-  export default {
-    data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
-      return {
-        tableData: Array(20).fill(item),
-        currentDate: new Date()
+export default {
+  data() {
+    return {
+      selectedValue: '',
+      activeTab: 'tab1',
+      c1: 0,
+      c2: 0,
+      c3: 0,
+      result: 0
+    };
+  },
+  watch: {
+    activeTab() {
+      this.updateResult();
+    },
+    c1() {
+      this.updateResult();
+    },
+    c2() {
+      this.updateResult();
+    },
+    c3() {
+      this.updateResult();
+    }
+  },
+  methods: {
+    copyToClipboard() {
+      // 创建一个临时的 textarea 元素
+      const textarea = document.createElement('textarea');
+      textarea.value = this.selectedValue;
+
+      // 将 textarea 插入到 DOM 中
+      document.body.appendChild(textarea);
+
+      // 选中 textarea 内容并执行复制操作
+      textarea.select();
+      document.execCommand('copy');
+
+      // 清理临时元素
+      document.body.removeChild(textarea);
+
+      // 可以在控制台输出一些信息，或者使用 Element UI 的 Message 提示用户
+      console.log('已复制到剪贴板');
+    },
+    updateResult() {
+      if (this.activeTab === 'tab1') {
+        this.result = this.c1 + this.c2;
+      } else if (this.activeTab === 'tab2') {
+        this.result = this.c3;
       }
     }
-  };
+  }
+};
 </script>
